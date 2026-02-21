@@ -31,18 +31,10 @@ class ExpandedNotchViewModel: ObservableObject {
     
     @Published var nowPlayingMedia: NowPlayingMediaModel?
     
-    @Published var shelfFileGroups: [ShelfFileGroupModel] = [] {
-        didSet {
-            ShelfDefaults.shared.shelfFileGroups = shelfFileGroups
-        }
-    }
-    
     init() {
         self.startListeners()
         
         self.nowPlayingMedia = NowPlaying.shared.nowPlayingModel
-        
-        self.shelfFileGroups = ShelfDefaults.shared.shelfFileGroups
     }
     
     deinit {

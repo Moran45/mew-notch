@@ -5,7 +5,8 @@ YourNotch is a personal macOS notch utility fork tailored for a single-user setu
 ## What this build includes
 
 - Notch HUD for volume, brightness, power, and now playing.
-- Expanded notch items (file shelf, bash view, media details).
+- Expanded notch items (bash view, media details).
+- Reserved `Shelf` tab currently left empty for future custom widgets.
 - Fixed notch behavior on the built-in MacBook display only.
 - Base notch geometry fixed for MacBook Air M3 13.6-inch.
 
@@ -14,6 +15,7 @@ YourNotch is a personal macOS notch utility fork tailored for a single-user setu
 - No auto-update system.
 - No remote update checks.
 - No multi-display notch targeting.
+- No AirDrop integration or shelf drag-and-drop pipeline.
 
 ## Requirements
 

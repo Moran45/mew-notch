@@ -68,8 +68,7 @@ struct ExpandedNotchView: View {
                     EmptyView()
                 case .Shelf:
                     FileShelfView(
-                        notchViewModel: notchViewModel,
-                        expandedNotchViewModel: expandedNotchViewModel
+                        notchViewModel: notchViewModel
                     )
                 }
             }

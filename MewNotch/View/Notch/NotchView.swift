@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct NotchView: View {
     
@@ -78,47 +77,6 @@ struct NotchView: View {
                         $0,
                         shouldExpand: notchDefaults.expandOnHover || notchDefaults.applyGlassEffect
                     )
-                }
-                .dropDestination(
-                    for: URL.self,
-                    action: { fileURLs, _ in
-                        DispatchQueue.global(qos: .utility).async {
-                            guard let groupModel = ShelfFileGroupModel(
-                                urls: fileURLs
-                            ) else {
-                                print("groupModel could not be initialized")
-                                return
-                            }
-                            
-                            DispatchQueue.main.async {
-                                withAnimation {
-                                    expandedNotchViewModel.shelfFileGroups.append(
-                                        groupModel
-                                    )
-                                }
-                            }
-                        }
-                        
-                        return true
-                    },
-                    isTargeted: {
-                        notchViewModel.isDropTarget = $0
-                    }
-                )
-                .onChange(
-                    of: notchViewModel.isDropTarget
-                ) { oldValue, newValue in
-                    guard oldValue != newValue else { return }
-                    
-                    if newValue {
-                        expandedNotchViewModel.currentView = .Shelf
-                        
-                        notchViewModel.onTap()
-                    } else {
-                        notchViewModel.onHover(
-                            notchViewModel.isHovered
-                        )
-                    }
                 }
                 .onTapGesture(
                     perform: notchViewModel.onTap

@@ -30,6 +30,14 @@ struct ExpandedNowPlayingSettingsView: View {
                 ) {
                     Toggle("", isOn: $nowPlayingDefaults.showArtist)
                 }
+
+                SettingsRow(
+                    title: "Show Music List",
+                    icon: MewNotch.Assets.icArtist,
+                    color: MewNotch.Colors.artist
+                ) {
+                    Toggle("", isOn: $nowPlayingDefaults.showArtist)
+                }
                 
                 SettingsRow(
                     title: "Show Album",

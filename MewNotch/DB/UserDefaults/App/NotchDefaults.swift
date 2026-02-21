@@ -14,6 +14,12 @@ class NotchDefaults: ObservableObject {
     static let shared = NotchDefaults()
     
     private init() {
+        let shelfCleanupFlag = Self.PREFIX + "ShelfCleanupV1Done"
+        if !UserDefaults.standard.bool(forKey: shelfCleanupFlag) {
+            UserDefaults.standard.removeObject(forKey: "Shelf_FileGroups")
+            UserDefaults.standard.set(true, forKey: shelfCleanupFlag)
+        }
+
         var currentOrder = expandedItemsOrder
         let allItems = ExpandedNotchItem.allCases
         

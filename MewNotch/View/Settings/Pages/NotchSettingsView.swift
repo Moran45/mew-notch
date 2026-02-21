@@ -27,7 +27,7 @@ struct NotchSettingsView: View {
                 
                 SettingsRow(
                     title: "Show on Lock Screen",
-                    subtitle: "Incompatible with File Shelf feature",
+                    subtitle: "Show notch while macOS lock screen is active",
                     icon: MewNotch.Assets.icLock,
                     color: MewNotch.Colors.lock
                 ) {
