@@ -18,7 +18,7 @@ struct GeneraSettingsView: View {
             Section {
                 SettingsRow(
                     title: "Launch at Login",
-                    subtitle: "Automatically start MewNotch when you log in",
+                    subtitle: "Automatically start YourNotch when you log in",
                     icon: MewNotch.Assets.icLaunchAtLogin,
                     color: MewNotch.Colors.style
                 ) {

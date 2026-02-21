@@ -11,7 +11,6 @@
 		251798DC2F126FFF0050B370 /* MacroVisionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 251798DB2F126FFF0050B370 /* MacroVisionKit */; };
 		253243BE2E09A6220030EC15 /* DisplayServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E05A76E2D7D93A900980012 /* DisplayServices.framework */; };
 		253243C32E09A6240030EC15 /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253243AF2E09A1AA0030EC15 /* SkyLight.framework */; };
-		258F12A22F01D5D100CA507F /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 258F12A12F01D5D100CA507F /* Sparkle */; };
 		25F325642ED64870001C93C0 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 25F325632ED64870001C93C0 /* LaunchAtLogin */; };
 		25F325662ED64885001C93C0 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 25F325652ED64885001C93C0 /* SwiftyJSON */; };
 		9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9E36AFAA2D78EB2100D53482 /* Lottie */; };
@@ -79,7 +78,6 @@
 			files = (
 				251798DC2F126FFF0050B370 /* MacroVisionKit in Frameworks */,
 				25F325642ED64870001C93C0 /* LaunchAtLogin in Frameworks */,
-				258F12A22F01D5D100CA507F /* Sparkle in Frameworks */,
 				25F325662ED64885001C93C0 /* SwiftyJSON in Frameworks */,
 				9E36AFAB2D78EB2100D53482 /* Lottie in Frameworks */,
 				253243BE2E09A6220030EC15 /* DisplayServices.framework in Frameworks */,
@@ -142,7 +140,6 @@
 				9E36AFAA2D78EB2100D53482 /* Lottie */,
 				25F325632ED64870001C93C0 /* LaunchAtLogin */,
 				25F325652ED64885001C93C0 /* SwiftyJSON */,
-				258F12A12F01D5D100CA507F /* Sparkle */,
 				251798DB2F126FFF0050B370 /* MacroVisionKit */,
 			);
 			productName = MewNotch;
@@ -178,7 +175,6 @@
 				9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				250A20722ED646CF00FBAF0C /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				250A20732ED646DB00FBAF0C /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
-				258F12A02F01D5D100CA507F /* XCRemoteSwiftPackageReference "Sparkle" */,
 				251798DA2F126FFF0050B370 /* XCRemoteSwiftPackageReference "MacroVisionKit" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -340,7 +336,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 003;
 				DEVELOPMENT_TEAM = 6GLWGGY9D7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -350,7 +346,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MewNotch/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mew Notch";
+				INFOPLIST_KEY_CFBundleDisplayName = YourNotch;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSBackgroundOnly = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -360,8 +356,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.monuk7735.mew.notch;
+				MARKETING_VERSION = 1.0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yournotch.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MewNotch/Utils/Helpers/MewNotch-Bridging-Header.h";
@@ -381,7 +377,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 003;
 				DEVELOPMENT_TEAM = 6GLWGGY9D7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -391,7 +387,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MewNotch/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mew Notch";
+				INFOPLIST_KEY_CFBundleDisplayName = YourNotch;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSBackgroundOnly = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -401,8 +397,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.monuk7735.mew.notch;
+				MARKETING_VERSION = 1.0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yournotch.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MewNotch/Utils/Helpers/MewNotch-Bridging-Header.h";
@@ -459,14 +455,6 @@
 				minimumVersion = 0.1.0;
 			};
 		};
-		258F12A02F01D5D100CA507F /* XCRemoteSwiftPackageReference "Sparkle" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sparkle-project/Sparkle";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.8.1;
-			};
-		};
 		9E36AFA92D78EB2100D53482 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -482,11 +470,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 251798DA2F126FFF0050B370 /* XCRemoteSwiftPackageReference "MacroVisionKit" */;
 			productName = MacroVisionKit;
-		};
-		258F12A12F01D5D100CA507F /* Sparkle */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 258F12A02F01D5D100CA507F /* XCRemoteSwiftPackageReference "Sparkle" */;
-			productName = Sparkle;
 		};
 		25F325632ED64870001C93C0 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct AboutAppView: View {
-    
-    @StateObject var updaterViewModel = UpdaterViewModel.shared
+    private var currentVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+        return "\(version) (\(build))"
+    }
     
     var body: some View {
         VStack(spacing: 32) {
@@ -23,11 +26,11 @@ struct AboutAppView: View {
                     .shadow(radius: 10)
                 
                 VStack(spacing: 8) {
-                    Text("MewNotch")
+                    Text("YourNotch")
                         .font(.system(size: 32, weight: .bold, design: .rounded))
                         .foregroundStyle(MewNotch.Colors.notch.color)
                     
-                    Text("Version \(updaterViewModel.currentVersion)")
+                    Text("Version \(currentVersion)")
                         .font(.system(size: 14, weight: .medium, design: .rounded))
                         .foregroundStyle(.secondary)
                         .padding(.horizontal, 12)
@@ -39,17 +42,6 @@ struct AboutAppView: View {
                 }
             }
 
-            VStack(spacing: 16) {
-                Button(action: {
-                    updaterViewModel.checkForUpdates()
-                }) {
-                    Text("Check for Updates")
-                        .font(.system(size: 13, weight: .medium))
-                        .frame(maxWidth: 160)
-                }
-                .controlSize(.large)
-                .disabled(!updaterViewModel.canCheckForUpdates)
-            }
         }
         .padding(40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
