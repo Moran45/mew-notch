@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Deprecated: kept for backward compatibility with persisted settings.
 enum NotchDisplayVisibility: String, CaseIterable, Codable, Identifiable {
     var id: String {
         self.rawValue

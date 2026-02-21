@@ -10,8 +10,6 @@ import SwiftUI
 
 struct NotchSettingsView: View {
     
-    @Environment(\.scenePhase) private var scenePhase
-    
     @StateObject private var viewModel = NotchSettingsViewModel()
     
 
@@ -22,60 +20,14 @@ struct NotchSettingsView: View {
         Form {
             Section {
                 SettingsRow(
-                    title: "Show Notch On",
+                    title: "Notch Display",
+                    subtitle: "Built-in MacBook display only (fixed)",
                     icon: MewNotch.Assets.icDisplay,
                     color: MewNotch.Colors.notch
                 ) {
-                    Picker("", selection: $notchDefaults.notchDisplayVisibility) {
-                        ForEach(NotchDisplayVisibility.allCases) { item in
-                            Text(item.displayName).tag(item)
-                        }
-                    }
-                    .labelsHidden()
-                }
-                
-                if notchDefaults.notchDisplayVisibility == .Custom {
-                    VStack(spacing: 8) {
-                        HStack {
-                            Text("Choose Displays to show notch on")
-                                .font(.body)
-                                .foregroundStyle(.secondary)
-                            Spacer()
-                            Button("Refresh List") {
-                                viewModel.refreshNSScreens()
-                            }
-                            .font(.caption)
-                        }
-                        
-                        ScrollView(.horizontal) {
-                            LazyHStack(spacing: 12) {
-                                ForEach(viewModel.screens, id: \.self) { screen in
-                                    let isSelected = notchDefaults.shownOnDisplay[screen.localizedName] == true
-                                    Text(screen.localizedName)
-                                        .font(.subheadline)
-                                        .frame(minHeight: 50)
-                                        .padding(12)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .fill(isSelected ? Color.blue.opacity(0.15) : Color.gray.opacity(0.1))
-                                        )
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(isSelected ? Color.blue : Color.gray.opacity(0.3), lineWidth: 2)
-                                                .padding(1)
-                                        )
-                                        .onTapGesture {
-                                            let old = notchDefaults.shownOnDisplay[screen.localizedName] ?? false
-                                            withAnimation(.easeInOut(duration: 0.2)) {
-                                                notchDefaults.shownOnDisplay[screen.localizedName] = !old
-                                            }
-                                        }
-                                }
-                            }
-                            .padding(.vertical, 4)
-                        }
-                    }
-                    .padding(.vertical, 4)
+                    Text("Fixed")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
                 
                 SettingsRow(
@@ -166,21 +118,6 @@ struct NotchSettingsView: View {
         .formStyle(.grouped)
         .navigationTitle("Notch")
         .toolbarTitleDisplayMode(.inline)
-        .onChange(
-            of: notchDefaults.notchDisplayVisibility
-        ) { _, _ in
-             viewModel.refreshNotches()
-        }
-        .onChange(
-            of: notchDefaults.shownOnDisplay
-        ) { _, _ in
-             viewModel.refreshNotches()
-        }
-        .onChange(
-             of: scenePhase
-        ) { _, _ in
-             viewModel.refreshNSScreens()
-        }
     }
 }
 

@@ -10,10 +10,18 @@ import Foundation
 class NotchDefaults: ObservableObject {
     
     private static var PREFIX: String = "Notch_"
+    private static let INTERNAL_DISPLAY_MIGRATION_KEY = PREFIX + "InternalDisplayOnlyMigrationV1"
     
     static let shared = NotchDefaults()
     
     private init() {
+        if !UserDefaults.standard.bool(forKey: Self.INTERNAL_DISPLAY_MIGRATION_KEY) {
+            // Legacy cleanup: this app now always targets the built-in MacBook display.
+            notchDisplayVisibility = .NotchedDisplayOnly
+            shownOnDisplay = [:]
+            UserDefaults.standard.set(true, forKey: Self.INTERNAL_DISPLAY_MIGRATION_KEY)
+        }
+
         var currentOrder = expandedItemsOrder
         let allItems = ExpandedNotchItem.allCases
         
@@ -39,6 +47,7 @@ class NotchDefaults: ObservableObject {
         PREFIX + "NotchDisplayVisibility",
         defaultValue: NotchDisplayVisibility.NotchedDisplayOnly
     )
+    // Deprecated: persisted only for backward compatibility.
     var notchDisplayVisibility: NotchDisplayVisibility {
         didSet {
             self.objectWillChange.send()
@@ -49,6 +58,7 @@ class NotchDefaults: ObservableObject {
         PREFIX + "ShownOnDisplay",
         defaultValue: [:]
     )
+    // Deprecated: persisted only for backward compatibility.
     var shownOnDisplay: [String: Bool] {
         didSet {
             self.objectWillChange.send()

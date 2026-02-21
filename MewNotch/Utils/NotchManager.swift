@@ -33,22 +33,57 @@ class NotchManager {
         monitorTask?.cancel()
         removeListenerForScreenUpdates()
     }
+
+    private func getDisplayID(
+        for screen: NSScreen
+    ) -> CGDirectDisplayID? {
+        NotchScreenResolver.shared.displayID(from: screen)
+    }
+
+    private func getIntegratedScreen() -> NSScreen? {
+        NotchScreenResolver.shared.pantallaIntegradaActual()
+    }
+
+    private func windowForDisplayID(
+        _ displayID: CGDirectDisplayID
+    ) -> (screen: NSScreen, window: NSWindow)? {
+        guard let item = windows.first(where: { (screen, _) in
+            getDisplayID(for: screen) == displayID
+        }) else {
+            return nil
+        }
+
+        return (screen: item.key, window: item.value)
+    }
     
     @MainActor
     private func updateFullScreenStatus(with spaces: [MacroVisionKit.FullScreenMonitor.SpaceInfo]) {
         guard notchDefaults.hideOnFullScreen else { return }
-        
+
+        guard
+            let integratedScreen = getIntegratedScreen(),
+            let integratedDisplayID = getDisplayID(for: integratedScreen),
+            let targetWindow = windowForDisplayID(integratedDisplayID)?.window
+        else {
+            return
+        }
+
+        let isIntegratedDisplayFullScreen = spaces.contains { space in
+            guard
+                let fullScreenAppScreen = FullScreenMonitor.shared.screen(for: space),
+                let fullScreenDisplayID = getDisplayID(for: fullScreenAppScreen)
+            else {
+                return false
+            }
+
+            return fullScreenDisplayID == integratedDisplayID
+        }
+
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 0.6
             context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-            
-            windows.forEach { $0.value.animator().alphaValue = 1 }
-        }
-        
-        for space in spaces {
-            if let screen = FullScreenMonitor.shared.screen(for: space) {
-                windows[screen]?.alphaValue = 0
-            }
+
+            targetWindow.animator().alphaValue = isIntegratedDisplayFullScreen ? 0 : 1
         }
     }
     
@@ -56,73 +91,84 @@ class NotchManager {
         killAllWindows: Bool = false,
         addToSeparateSpace: Bool = true
     ) {
-        
-        let shownOnDisplays = Set(notchDefaults.shownOnDisplay.filter { $1 }.keys)
-        
-        let shouldShowOnScreen: (NSScreen) -> Bool = { [weak self] screen in
-            guard let self else { return false }
-            
-            if self.notchDefaults.notchDisplayVisibility != .Custom {
+
+        let targetScreen = getIntegratedScreen()
+        let targetDisplayID = targetScreen.flatMap { getDisplayID(for: $0) }
+
+        let screensToClose = windows.keys.filter { screen in
+            if killAllWindows {
                 return true
             }
-            
-            return shownOnDisplays.contains(screen.localizedName)
-        }
-        
-        windows.forEach { screen, window in
-            if killAllWindows || !NSScreen.screens.contains(
-                where: { $0 == screen}
-            ) || !shouldShowOnScreen(screen) {
-                window.close()
-                
-                windows.removeValue(
-                    forKey: screen
-                )
+
+            guard let expectedDisplayID = targetDisplayID else {
+                return true
             }
+
+            return getDisplayID(for: screen) != expectedDisplayID
         }
-        
-        NSScreen.screens.filter {
-            shouldShowOnScreen($0)
-        }.forEach { screen in
-            var panel: NSWindow! = windows[screen]
-            
-            if panel == nil {
-                let view: NSView = NSHostingView(
-                    rootView: NotchView(
-                        screen: screen
-                    )
-                )
-                
-                panel = MewPanel(
-                    contentRect: screen.frame,
-                    styleMask: [
-                        .borderless,
-                        .nonactivatingPanel,
-                        .utilityWindow,
-                        .hudWindow
-                    ],
-                    backing: .buffered,
-                    defer: true
-                )
-                
-                panel.contentView = view
+
+        for screen in screensToClose {
+            guard let window = windows.removeValue(forKey: screen) else {
+                continue
             }
-            
-            panel.setFrame(
-                screen.frame,
-                display: true
+
+            window.close()
+        }
+
+        guard
+            let targetScreen,
+            let targetDisplayID
+        else {
+            return
+        }
+
+        let existingWindowEntry = windowForDisplayID(targetDisplayID)
+        var panel: NSWindow? = existingWindowEntry?.window
+
+        if let existingScreen = existingWindowEntry?.screen, existingScreen != targetScreen {
+            windows.removeValue(forKey: existingScreen)
+        }
+
+        if panel == nil {
+            let view: NSView = NSHostingView(
+                rootView: NotchView(
+                    screen: targetScreen
+                )
             )
-            
-            panel.orderFrontRegardless()
-            
-            windows[screen] = panel
-            
-            if addToSeparateSpace {
-                if notchDefaults.shownOnLockScreen {
-                    WindowManager.shared?.moveToLockScreen(panel)
-                } else {
-                    NotchSpaceManager.shared.notchSpace.windows.insert(panel)
-                }
+
+            panel = MewPanel(
+                contentRect: targetScreen.frame,
+                styleMask: [
+                    .borderless,
+                    .nonactivatingPanel,
+                    .utilityWindow,
+                    .hudWindow
+                ],
+                backing: .buffered,
+                defer: true
+            )
+
+            panel?.contentView = view
+        }
+
+        guard let panel else {
+            return
+        }
+
+        panel.setFrame(
+            targetScreen.frame,
+            display: true
+        )
+
+        panel.orderFrontRegardless()
+
+        windows[targetScreen] = panel
+
+        if addToSeparateSpace {
+            if notchDefaults.shownOnLockScreen {
+                WindowManager.shared?.moveToLockScreen(panel)
+            } else {
+                NotchSpaceManager.shared.notchSpace.windows.insert(panel)
             }
         }
         
