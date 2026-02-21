@@ -7,12 +7,7 @@
 
 import SwiftUI
 
-
 struct NotchSettingsView: View {
-    
-    @StateObject private var viewModel = NotchSettingsViewModel()
-    
-
     
     @StateObject var notchDefaults = NotchDefaults.shared
     
@@ -38,7 +33,7 @@ struct NotchSettingsView: View {
                 ) {
                     Toggle("", isOn: $notchDefaults.shownOnLockScreen)
                         .onChange(of: notchDefaults.shownOnLockScreen) { _, _ in
-                            viewModel.refreshNotchesAndKillWindows()
+                            NotchManager.shared.refreshNotches(killAllWindows: true)
                         }
                 }
                 
@@ -50,7 +45,7 @@ struct NotchSettingsView: View {
                 ) {
                     Toggle("", isOn: $notchDefaults.hideOnFullScreen)
                         .onChange(of: notchDefaults.hideOnFullScreen) { _, _ in
-                            viewModel.refreshNotches()
+                            NotchManager.shared.refreshNotches()
                         }
                 }
                 
@@ -67,21 +62,8 @@ struct NotchSettingsView: View {
                 Text("Displays")
             }
             
-            Section {
-                SettingsRow(
-                    title: "Height",
-                    icon: MewNotch.Assets.icHeight,
-                    color: MewNotch.Colors.height
-                ) {
-                    Picker("", selection: $notchDefaults.heightMode) {
-                        ForEach(NotchHeightMode.allCases) { item in
-                            Text(item.displayName).tag(item)
-                        }
-                    }
-                    .labelsHidden()
-                }
-                
-                if #available(macOS 26.0, *) {
+            if #available(macOS 26.0, *) {
+                Section {
                     SettingsRow(
                         title: "Apply Glass Effect",
                         subtitle: "Forces 'Expand on Hover' to be enabled",
@@ -90,9 +72,9 @@ struct NotchSettingsView: View {
                     ) {
                         Toggle("", isOn: $notchDefaults.applyGlassEffect)
                     }
+                } header: {
+                    Text("Interface")
                 }
-            } header: {
-                Text("Interface")
             }
             
             Section {
@@ -111,9 +93,6 @@ struct NotchSettingsView: View {
             } header: {
                 Text("Interaction")
             }
-            
-
-
         }
         .formStyle(.grouped)
         .navigationTitle("Notch")

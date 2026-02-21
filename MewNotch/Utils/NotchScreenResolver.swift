@@ -17,32 +17,24 @@ final class NotchScreenResolver {
     func pantallaIntegradaActual(
         from screens: [NSScreen] = NSScreen.screens
     ) -> NSScreen? {
-        let displaysIntegrados = screens.filter { screen in
+        let displaysIntegrados = screens.compactMap { screen -> (screen: NSScreen, id: CGDirectDisplayID)? in
             guard let id = displayID(from: screen) else {
-                return false
+                return nil
             }
 
-            return esDisplayIntegrado(id)
-        }
+            guard esDisplayIntegrado(id) else {
+                return nil
+            }
+
+            return (screen: screen, id: id)
+        }.sorted { $0.id < $1.id }
 
         guard !displaysIntegrados.isEmpty else {
             NSLog("NotchScreenResolver: no built-in display available. Notch will not be shown.")
             return nil
         }
 
-        return displaysIntegrados.max { lhs, rhs in
-            let lhsTieneNotch = lhs.safeAreaInsets.top > 0
-            let rhsTieneNotch = rhs.safeAreaInsets.top > 0
-
-            if lhsTieneNotch != rhsTieneNotch {
-                return !lhsTieneNotch && rhsTieneNotch
-            }
-
-            let lhsArea = lhs.frame.width * lhs.frame.height
-            let rhsArea = rhs.frame.width * rhs.frame.height
-
-            return lhsArea < rhsArea
-        }
+        return displaysIntegrados.first?.screen
     }
 
     func displayID(

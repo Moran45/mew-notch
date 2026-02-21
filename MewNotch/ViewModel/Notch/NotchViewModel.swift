@@ -42,10 +42,7 @@ class NotchViewModel: ObservableObject {
     ) {
         self.screen = screen
 
-        self.notchSize = NotchUtils.shared.notchSize(
-            screen: self.screen,
-            force: false
-        )
+        self.notchSize = NotchUtils.shared.notchSize()
         
         withAnimation {
             notchSize.width += extraNotchPadSize.width
@@ -56,10 +53,7 @@ class NotchViewModel: ObservableObject {
     }
     
     func refreshNotchSize() {
-        self.notchSize = NotchUtils.shared.notchSize(
-            screen: self.screen,
-            force: false
-        )
+        self.notchSize = NotchUtils.shared.notchSize()
         
         withAnimation {
             notchSize.width += extraNotchPadSize.width

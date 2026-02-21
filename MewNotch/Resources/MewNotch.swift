@@ -62,7 +62,6 @@ class MewNotch {
         static let icDisplay = Image(systemName: "display")
         static let icLock = Image(systemName: "lock.fill")
         static let icReset = Image(systemName: "arrow.counterclockwise")
-        static let icHeight = Image(systemName: "ruler.fill")
         static let icGlass = Image(systemName: "sparkles")
         static let icHover = Image(systemName: "cursorarrow.rays")
         static let icCornerRadius = Image(systemName: "app.dashed")
@@ -102,7 +101,6 @@ class MewNotch {
         static let about = IconColor.gray
         
         static let lock = IconColor.gray
-        static let height = IconColor.orange
         static let glass = IconColor.cyan
         static let hover = IconColor.indigo
         static let separator = IconColor.gray
