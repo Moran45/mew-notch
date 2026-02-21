@@ -50,7 +50,6 @@ class MewNotch {
         // Settings Icons (SF Symbols)
         static let icGeneral = Image(systemName: "gear")
         static let icNotch = Image(systemName: "macbook")
-        static let icMirror = Image(systemName: "person.crop.square.fill")
         static let icNowPlaying = Image(systemName: "music.note")
         static let icHud = Image(systemName: "slider.horizontal.3")
         static let icAudio = Image(systemName: "speaker.wave.3.fill")
@@ -59,7 +58,6 @@ class MewNotch {
         static let icMedia = Image(systemName: "music.note")
         static let icAbout = Image(systemName: "info.circle")
         static let icTimer = Image(systemName: "timer")
-        static let icVideo = Image(systemName: "video.fill")
         
         static let icDisplay = Image(systemName: "display")
         static let icLock = Image(systemName: "lock.fill")
@@ -93,7 +91,6 @@ class MewNotch {
         static let general = IconColor.gray
         static let notch = IconColor.blue
         
-        static let mirror = IconColor.purple
         static let nowPlaying = IconColor.pink
         
         static let hud = IconColor.orange
@@ -121,7 +118,6 @@ class MewNotch {
         static let stepSize = IconColor.orange
         static let autoBrightness = IconColor.green
         static let systemHud = IconColor.red
-        static let video = IconColor.purple
     }
     
     class Lotties {

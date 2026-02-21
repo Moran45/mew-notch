@@ -6,11 +6,5 @@
 	<string>https://monuk7735.github.io/mew-notch/sparkle/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>KGcPcAdHIn451exwQ5H1o/17Op88Tzj+TtHCnLCUbg0=</string>
-	<key>NSCameraPortraitEffectEnabled</key>
-	<true/>
-	<key>NSCameraReactionEffectsEnabled</key>
-	<true/>
-	<key>NSCameraStudioLightEnabled</key>
-	<true/>
 </dict>
 </plist>

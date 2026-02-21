@@ -5,7 +5,7 @@ struct ExpandedItemsSettingsView: View {
     
     @StateObject private var notchDefaults = NotchDefaults.shared
     
-    @State private var selectedItem: ExpandedNotchItem? = .Mirror
+    @State private var selectedItem: ExpandedNotchItem? = .NowPlaying
     
     var body: some View {
         VStack(spacing: 0) {
@@ -68,8 +68,6 @@ struct ExpandedItemsSettingsView: View {
             Group {
                 if let item = selectedItem {
                     switch item {
-                    case .Mirror:
-                        ExpandedMirrorSettingsView()
                     case .NowPlaying:
                         ExpandedNowPlayingSettingsView()
                     case .Bash:

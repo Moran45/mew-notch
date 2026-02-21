@@ -11,14 +11,11 @@ enum ExpandedNotchItem: String, CaseIterable, Codable, Identifiable {
         self.rawValue
     }
     
-    case Mirror
     case NowPlaying
     case Bash
     
     var displayName: String {
         switch self {
-        case .Mirror:
-            return "Mirror"
         case .NowPlaying:
             return "Now Playing"
         case .Bash:
@@ -28,8 +25,6 @@ enum ExpandedNotchItem: String, CaseIterable, Codable, Identifiable {
     
     var imageSystemName: String {
         switch self {
-        case .Mirror:
-            return "video.fill"
         case .NowPlaying:
             return "music.note"
         case .Bash:

@@ -17,7 +17,6 @@ struct NotchSettingsView: View {
 
     
     @StateObject var notchDefaults = NotchDefaults.shared
-    @StateObject var mirrorDefaults = MirrorDefaults.shared
     
     var body: some View {
         Form {

@@ -39,7 +39,6 @@
 - **Power State** - Show current power source. **New:** Toggle "Time Remaining" display for a cleaner look.
 - **Notch on Lock Screen** - The notch HUD is now visible even on the macOS lock screen.
 - **Now Playing** - Control now playing media directly from notch. Expand notch for additional controls.
-- **Mirror** - Get a quick peek on how you're looking by using the mirror in expanded notch. Now with customizable corner radius.
 - **Bash Script View** - Run and display bash commands directly in the expanded notch.
 - **Custom Layout** - Reorder notch items to suit your workflow.
 - **Auto Updates** - Built-in updater (Sparkle) to keep your app always up to date.
@@ -104,7 +103,6 @@ This command simply removes the "quarantine" flag that macOS places on apps down
 - [x] ~~Actions on Now Playing HUD. Hover to see magic.~~
 - [x] ~~Now Playing Detail on Expanded Notch View.~~
 - [x] ~~Expand notch on hover.~~
-- [x] ~~Mirror View~~
 - [x] ~~Complete Control over which monitor shows the notch~~
 - [x] ~~Explore different options for Now Playing media support on macOS 15.4 and above.~~
 - [x] ~~Shelf for files in expanded notch view~~

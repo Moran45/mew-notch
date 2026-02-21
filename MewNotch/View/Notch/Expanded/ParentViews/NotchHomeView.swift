@@ -32,10 +32,6 @@ struct NotchHomeView: View {
                 let item = items[index]
                 
                 switch item {
-                case .Mirror:
-                    MirrorView(
-                        notchViewModel: notchViewModel
-                    )
                 case .NowPlaying:
                     NowPlayingDetailView(
                         namespace: namespace,
