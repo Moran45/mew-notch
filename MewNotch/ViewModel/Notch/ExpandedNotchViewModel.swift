@@ -22,7 +22,7 @@ class ExpandedNotchViewModel: ObservableObject {
             case .Home:
                 return "house"
             case .Shelf:
-                return "folder"
+                return "internaldrive.fill"
             }
         }
     }
