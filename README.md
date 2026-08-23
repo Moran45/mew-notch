@@ -30,8 +30,8 @@ YourNotch is a personal macOS notch utility fork tailored for a single-user setu
 
 ## Versioning
 
-- Marketing version: `1.0.3`
-- Build number: `003`
+- Marketing version: `1.0.0`
+- Build number: `1`
 
 ## License
 
