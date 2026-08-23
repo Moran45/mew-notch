@@ -37,6 +37,29 @@
 		9EA41D872D6DEACA00817679 /* MewNotch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MewNotch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9E71E3BB2DB38C0D0086C25E /* Exceptions for "MewNotch" folder in "MewNotch" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9EA41D862D6DEACA00817679 /* MewNotch */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		25F325832ED76127001C93C0 /* Exceptions for "MewNotch" folder in "Embed Frameworks" phase from "MewNotch" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				Resources/Libs/MediaRemoteAdapter.framework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
+			};
+			buildPhase = 25F3257D2ED751EC001C93C0 /* Embed Frameworks */;
+			membershipExceptions = (
+				Resources/Libs/MediaRemoteAdapter.framework,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		25FA0000000000000000A003 /* MewNotchWatch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -45,6 +68,10 @@
 		};
 		9EA41D892D6DEACA00817679 /* MewNotch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9E71E3BB2DB38C0D0086C25E /* Exceptions for "MewNotch" folder in "MewNotch" target */,
+				25F325832ED76127001C93C0 /* Exceptions for "MewNotch" folder in "Embed Frameworks" phase from "MewNotch" target */,
+			);
 			path = MewNotch;
 			sourceTree = "<group>";
 		};
