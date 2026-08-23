@@ -17,6 +17,11 @@ struct NotchView: View {
     
     @StateObject var notchViewModel: NotchViewModel
     @StateObject var expandedNotchViewModel: ExpandedNotchViewModel = .init()
+
+    @StateObject private var claudeActivityMonitor = ClaudeActivityMonitor.shared
+
+    /// Counter driving the collapsed notch's shake.
+    @State private var shakeTrigger: Int = 0
     
     init(
         screen: NSScreen
@@ -69,6 +74,7 @@ struct NotchView: View {
                     notchViewModel.isHovered ? 1.1 : 1.0,
                     anchor: .top
                 )
+                .shakes(on: shakeTrigger)
                 .shadow(
                     radius: notchViewModel.isHovered ? 5 : 0
                 )
@@ -90,6 +96,16 @@ struct NotchView: View {
         .preferredColorScheme(.dark)
         .contextMenu {
             NotchOptionsView()
+        }
+        .onAppear {
+            // Kept running for the lifetime of the notch: the shake has to fire
+            // while the Claude tab is closed, which is the whole point of it.
+            claudeActivityMonitor.start()
+        }
+        .onReceive(claudeActivityMonitor.$activityPulse) { pulse in
+            // Only while collapsed — an expanded notch already shows the change.
+            guard pulse > 0, !notchViewModel.isExpanded else { return }
+            shakeTrigger &+= 1
         }
     }
 }

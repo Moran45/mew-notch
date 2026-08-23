@@ -26,6 +26,21 @@ final class ClaudeActivityMonitor: ObservableObject {
     /// All known sessions: running ones first, then most recently active.
     @Published private(set) var sessions: [ClaudeSession] = []
 
+    /// Bumped whenever a running session changes state — a prompt goes out, or
+    /// a reply lands. Views observe it to signal that something happened.
+    ///
+    /// Deliberately driven by status transitions rather than transcript writes:
+    /// a transcript is appended to continuously during a turn, which would fire
+    /// this every couple of seconds while Claude works.
+    @Published private(set) var activityPulse: Int = 0
+
+    /// Last seen status per running session, for detecting transitions.
+    private var lastLiveStatuses: [String: ClaudeSessionStatus] = [:]
+
+    /// Suppresses a pulse for the very first scan, so the notch does not shake
+    /// simply because the app launched.
+    private var hasScanned = false
+
     /// Data a running session reports about itself.
     private struct LiveSession: Decodable {
         let pid: Int32
@@ -147,8 +162,23 @@ final class ClaudeActivityMonitor: ObservableObject {
             )
         }
 
+        let statuses = Dictionary(
+            uniqueKeysWithValues: merged.filter(\.isLive).map { ($0.id, $0.status) }
+        )
+        let changed = statuses.contains { lastLiveStatuses[$0.key] != $0.value }
+        let shouldPulse = hasScanned && changed
+
+        lastLiveStatuses = statuses
+        hasScanned = true
+
         DispatchQueue.main.async { [weak self] in
-            guard let self, self.sessions != merged else { return }
+            guard let self else { return }
+
+            if shouldPulse {
+                self.activityPulse &+= 1
+            }
+
+            guard self.sessions != merged else { return }
             self.sessions = merged
         }
     }

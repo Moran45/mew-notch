@@ -20,6 +20,10 @@ struct ClaudeView: View {
     /// The notch is short, so only the first few sessions are rendered.
     private let maxVisibleSessions = 3
 
+    /// Breathing room above the first row and below the last one. Without it
+    /// the bottom row sits flush against the edge of the notch.
+    private let verticalPadding: CGFloat = 6
+
     private static let relativeFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .abbreviated
@@ -61,7 +65,11 @@ struct ClaudeView: View {
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 4)
-        .frame(width: contentWidth, height: contentHeight, alignment: .top)
+        .padding(.vertical, verticalPadding)
+        .frame(width: contentWidth)
+        // minHeight rather than a fixed height: the reserved size is kept when
+        // there are few rows, but a full list is never clipped.
+        .frame(minHeight: contentHeight, alignment: .top)
         .onAppear { monitor.start() }
         .onDisappear {
             monitor.stop()
