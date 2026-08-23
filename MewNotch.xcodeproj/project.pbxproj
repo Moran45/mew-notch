@@ -34,6 +34,7 @@
 		9E05A76E2D7D93A900980012 /* DisplayServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DisplayServices.framework; path = ../../../../System/Library/PrivateFrameworks/DisplayServices.framework; sourceTree = "<group>"; };
 		9E284D432D8B2E8000ED8E89 /* MediaRemote.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaRemote.framework; path = ../../../../System/Library/PrivateFrameworks/MediaRemote.framework; sourceTree = "<group>"; };
 		9EA41D872D6DEACA00817679 /* MewNotch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MewNotch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25FA0000000000000000A002 /* MewNotchWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MewNotchWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -69,6 +70,11 @@
 			path = MewNotch;
 			sourceTree = "<group>";
 		};
+		25FA0000000000000000A003 /* MewNotchWatch */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MewNotchWatch;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,13 @@
 				253243BE2E09A6220030EC15 /* DisplayServices.framework in Frameworks */,
 				253243C32E09A6240030EC15 /* SkyLight.framework in Frameworks */,
 				250A205B2ED4A2C800FBAF0C /* MediaRemote.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		25FA0000000000000000A005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				9EA41D892D6DEACA00817679 /* MewNotch */,
+				25FA0000000000000000A003 /* MewNotchWatch */,
 				9E05A76B2D7D935F00980012 /* Frameworks */,
 				9EA41D882D6DEACA00817679 /* Products */,
 			);
@@ -112,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				9EA41D872D6DEACA00817679 /* MewNotch.app */,
+				25FA0000000000000000A002 /* MewNotchWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,6 +161,26 @@
 			productReference = 9EA41D872D6DEACA00817679 /* MewNotch.app */;
 			productType = "com.apple.product-type.application";
 		};
+		25FA0000000000000000A001 /* MewNotchWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25FA0000000000000000A007 /* Build configuration list for PBXNativeTarget "MewNotchWatch" */;
+			buildPhases = (
+				25FA0000000000000000A004 /* Sources */,
+				25FA0000000000000000A005 /* Frameworks */,
+				25FA0000000000000000A006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				25FA0000000000000000A003 /* MewNotchWatch */,
+			);
+			name = MewNotchWatch;
+			productName = MewNotchWatch;
+			productReference = 25FA0000000000000000A002 /* MewNotchWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -159,6 +194,9 @@
 					9EA41D862D6DEACA00817679 = {
 						CreatedOnToolsVersion = 16.2;
 						LastSwiftMigration = 1620;
+					};
+					25FA0000000000000000A001 = {
+						CreatedOnToolsVersion = 26.1;
 					};
 				};
 			};
@@ -183,6 +221,7 @@
 			projectRoot = "";
 			targets = (
 				9EA41D862D6DEACA00817679 /* MewNotch */,
+				25FA0000000000000000A001 /* MewNotchWatch */,
 			);
 		};
 /* End PBXProject section */
@@ -195,10 +234,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		25FA0000000000000000A006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9EA41D832D6DEACA00817679 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		25FA0000000000000000A004 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -407,6 +460,51 @@
 			};
 			name = Release;
 		};
+		25FA0000000000000000A008 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6GLWGGY9D7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = YourNotch;
+				INFOPLIST_KEY_WKApplication = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yournotch.app.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		25FA0000000000000000A009 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6GLWGGY9D7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = YourNotch;
+				INFOPLIST_KEY_WKApplication = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yournotch.app.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -424,6 +522,15 @@
 			buildConfigurations = (
 				9EA41D992D6DEACC00817679 /* Debug */,
 				9EA41D9A2D6DEACC00817679 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		25FA0000000000000000A007 /* Build configuration list for PBXNativeTarget "MewNotchWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25FA0000000000000000A008 /* Debug */,
+				25FA0000000000000000A009 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
