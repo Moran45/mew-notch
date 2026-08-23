@@ -61,15 +61,13 @@ struct ClaudeView: View {
                     .frame(maxWidth: .infinity)
                     .transition(.opacity)
             }
-
-            Spacer(minLength: 0)
         }
         .padding(.horizontal, 4)
         .padding(.vertical, verticalPadding)
-        .frame(width: contentWidth)
-        // minHeight rather than a fixed height: the reserved size is kept when
-        // there are few rows, but a full list is never clipped.
-        .frame(minHeight: contentHeight, alignment: .top)
+        .frame(width: contentWidth, alignment: .top)
+        // Size to the content. A minHeight here would let the parent stretch
+        // the panel to the full height of the screen.
+        .fixedSize(horizontal: false, vertical: true)
         .onAppear { monitor.start() }
         .onDisappear {
             monitor.stop()
@@ -87,7 +85,7 @@ struct ClaudeView: View {
                 .font(.system(size: 11, weight: .medium, design: .rounded))
                 .foregroundStyle(.white.opacity(0.5))
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, minHeight: contentHeight)
     }
 
     @ViewBuilder
