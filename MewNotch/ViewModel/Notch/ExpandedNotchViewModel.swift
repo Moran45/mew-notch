@@ -15,14 +15,14 @@ class ExpandedNotchViewModel: ObservableObject {
         }
         
         case Home
-        case Shelf
+        case Claude
         
         var imageSystemName: String {
             switch self {
             case .Home:
                 return "house"
-            case .Shelf:
-                return "internaldrive.fill"
+            case .Claude:
+                return "asterisk"
             }
         }
     }

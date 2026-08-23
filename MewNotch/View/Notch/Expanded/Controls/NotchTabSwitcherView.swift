@@ -1,5 +1,5 @@
 //
-//  FileShelfControlView.swift (Refactored to NotchTabSwitcherView)
+//  NotchTabSwitcherView.swift
 //  MewNotch
 //
 //  Created by Monu Kumar on 03/07/25.
@@ -19,7 +19,7 @@ struct NotchTabSwitcherView: View {
     var body: some View {
         HStack(spacing: spacing) {
             tabButton(for: .Home)
-            tabButton(for: .Shelf)
+            tabButton(for: .Claude)
         }
         .padding(3)
         .background {

@@ -66,8 +66,8 @@ struct ExpandedNotchView: View {
                 switch expandedNotchViewModel.currentView {
                 case .Home:
                     EmptyView()
-                case .Shelf:
-                    FileShelfView(
+                case .Claude:
+                    ClaudeView(
                         notchViewModel: notchViewModel
                     )
                 }
