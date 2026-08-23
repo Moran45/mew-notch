@@ -13,7 +13,6 @@
 #import "AudioControl/AudioInput.h"
 #import "AudioControl/AudioOutput.h"
 #import "Power/PowerStatus.h"
-#import "Arion/ArionRGBController.h"
 
 
 extern CFTypeRef IOPSCopyPowerSourcesInfo(void);
