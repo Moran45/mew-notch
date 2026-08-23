@@ -5,66 +5,92 @@
 
 import Foundation
 
-/// Derived state of a single Claude Code session.
+/// State of a Claude Code session.
 ///
-/// The transcript never states a status outright, so it is inferred from the
-/// last non-sidechain, non-meta entry: a `user` entry means a prompt is in
-/// flight, an `assistant` entry means the turn is over and Claude is waiting.
+/// Live sessions report this themselves in `~/.claude/sessions/<pid>.json`.
+/// Sessions that have exited leave only a transcript, so their state is
+/// inferred from the last entry instead.
 enum ClaudeSessionStatus: String, Hashable, Codable, Sendable {
 
-    /// A prompt was submitted and no reply has landed yet.
+    /// Claude is processing a turn.
     case working
 
-    /// Claude answered and is waiting on the user.
+    /// Claude is waiting on the user.
     case waiting
 
-    /// The transcript ended without a usable signal.
+    /// The session is no longer running.
+    case ended
+
     case unknown
+
+    /// Maps the `status` field Claude Code writes for a live session.
+    init(liveStatus: String) {
+        switch liveStatus.lowercased() {
+        case "busy", "working", "running": self = .working
+        case "idle", "waiting", "ready": self = .waiting
+        default: self = .unknown
+        }
+    }
 
     var label: String {
         switch self {
         case .working: return "Working"
         case .waiting: return "Waiting"
-        case .unknown: return "Idle"
+        case .ended: return "Ended"
+        case .unknown: return "Unknown"
         }
     }
 }
 
-/// One Claude Code session, as reconstructed from its transcript on disk.
+/// One Claude Code session.
 struct ClaudeSession: Identifiable, Hashable, Codable, Sendable {
 
-    /// Claude Code's own session UUID, also the transcript filename.
+    /// Claude Code's session UUID, also the transcript filename.
     let id: String
+
+    /// Process id, present only while the session is running. This is the
+    /// handle used to focus the session's terminal.
+    let pid: Int32?
+
+    /// Claude Code's own name for the session, e.g. `mew-notch-b1`.
+    let name: String?
 
     /// Absolute path of the directory Claude was invoked in.
     let projectPath: String
 
-    /// Model-generated title for the session, when one has been emitted.
+    /// Model-generated title, from the transcript.
     let title: String?
 
-    /// Most recent prompt text, used as a fallback label.
     let lastPrompt: String?
 
     let gitBranch: String?
 
     let status: ClaudeSessionStatus
 
-    /// Timestamp of the last entry, used for sorting and staleness.
     let lastActivity: Date
 
-    /// Best available human label for the session.
+    /// Whether the session is currently running.
+    var isLive: Bool { pid != nil }
+
+    /// Best available label. Claude Code's derived name is short and stable, so
+    /// it wins over the model-generated title in a space this narrow.
     var displayName: String {
+        if let name, !name.isEmpty { return name }
         if let title, !title.isEmpty { return title }
         if let lastPrompt, !lastPrompt.isEmpty { return lastPrompt }
         return projectName
     }
 
-    /// Trailing path component of the project directory.
+    /// Longer label for the row subtitle.
+    var detailName: String? {
+        guard let title, !title.isEmpty, title != displayName else { return nil }
+        return title
+    }
+
     var projectName: String {
         URL(fileURLWithPath: projectPath).lastPathComponent
     }
 
-    /// Sessions untouched for a while are treated as dormant rather than live.
     func isStale(now: Date = Date(), threshold: TimeInterval = 30 * 60) -> Bool {
         now.timeIntervalSince(lastActivity) > threshold
     }
